@@ -1,33 +1,25 @@
 package com.kongzue.dialog.v3;
 
-import android.app.ActivityManager;
 import android.app.Dialog;
-import android.content.ComponentName;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Looper;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.kongzue.dialog.R;
-import com.kongzue.dialog.interfaces.OnShowListener;
 import com.kongzue.dialog.interfaces.OnDismissListener;
+import com.kongzue.dialog.interfaces.OnShowListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.util.TextInfo;
 import com.kongzue.dialog.util.view.BlurView;
 import com.kongzue.dialog.util.view.ProgressView;
-
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -97,8 +89,9 @@ public class TipDialog extends BaseDialog {
             waitDialogTemp.onDismissListener = new OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    if (waitDialogTemp != null && waitDialogTemp.dismissListener != null)
+                    if (waitDialogTemp != null && waitDialogTemp.dismissListener != null) {
                         waitDialogTemp.dismissListener.onDismiss();
+                    }
                     waitDialogTemp = null;
                 }
             };
@@ -106,13 +99,17 @@ public class TipDialog extends BaseDialog {
             if (waitDialog == null) {
                 waitDialogTemp.setTip(null);
                 waitDialogTemp.setMessage(message);
-                if (waitDialogTemp.cancelTimer != null) waitDialogTemp.cancelTimer.cancel();
+                if (waitDialogTemp.cancelTimer != null) {
+                    waitDialogTemp.cancelTimer.cancel();
+                }
                 return waitDialogTemp;
             } else {
                 waitDialog.message = message;
                 waitDialog.type = null;
                 waitDialog.tipImage = null;
-                if (waitDialog.cancelTimer != null) waitDialog.cancelTimer.cancel();
+                if (waitDialog.cancelTimer != null) {
+                    waitDialog.cancelTimer.cancel();
+                }
                 waitDialog.showDialog();
                 return waitDialog;
             }
@@ -126,8 +123,9 @@ public class TipDialog extends BaseDialog {
             waitDialogTemp.onDismissListener = new OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    if (waitDialogTemp != null && waitDialogTemp.dismissListener != null)
+                    if (waitDialogTemp != null && waitDialogTemp.dismissListener != null) {
                         waitDialogTemp.dismissListener.onDismiss();
+                    }
                     waitDialogTemp = null;
                 }
             };
@@ -135,13 +133,17 @@ public class TipDialog extends BaseDialog {
             if (waitDialog == null) {
                 waitDialogTemp.setTip(null);
                 waitDialogTemp.setMessage(context.getString(messageResId));
-                if (waitDialogTemp.cancelTimer != null) waitDialogTemp.cancelTimer.cancel();
+                if (waitDialogTemp.cancelTimer != null) {
+                    waitDialogTemp.cancelTimer.cancel();
+                }
                 return waitDialogTemp;
             } else {
                 waitDialog.message = context.getString(messageResId);
                 waitDialog.type = null;
                 waitDialog.tipImage = null;
-                if (waitDialog.cancelTimer != null) waitDialog.cancelTimer.cancel();
+                if (waitDialog.cancelTimer != null) {
+                    waitDialog.cancelTimer.cancel();
+                }
                 waitDialog.showDialog();
                 return waitDialog;
             }
@@ -155,8 +157,9 @@ public class TipDialog extends BaseDialog {
             waitDialogTemp.onDismissListener = new OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    if (waitDialogTemp != null && waitDialogTemp.dismissListener != null)
+                    if (waitDialogTemp != null && waitDialogTemp.dismissListener != null) {
                         waitDialogTemp.dismissListener.onDismiss();
+                    }
                     waitDialogTemp = null;
                 }
             };
@@ -188,8 +191,9 @@ public class TipDialog extends BaseDialog {
             waitDialogTemp.onDismissListener = new OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    if (waitDialogTemp != null && waitDialogTemp.dismissListener != null)
+                    if (waitDialogTemp != null && waitDialogTemp.dismissListener != null) {
                         waitDialogTemp.dismissListener.onDismiss();
+                    }
                     waitDialogTemp = null;
                 }
             };
@@ -212,7 +216,8 @@ public class TipDialog extends BaseDialog {
     public static TipDialog show(AppCompatActivity context, int messageResId, int icoResId) {
         return show(context, context.getString(messageResId), icoResId);
     }
-    
+
+    @Override
     protected void showDialog() {
         log("启动等待对话框 -> " + message);
         super.showDialog();
@@ -226,7 +231,9 @@ public class TipDialog extends BaseDialog {
         
         this.rootView = rootView;
         
-        if (boxBlur != null) boxBlur.removeAllViews();
+        if (boxBlur != null) {
+            boxBlur.removeAllViews();
+        }
         boxBody = rootView.findViewById(R.id.box_body);
         boxBlur = rootView.findViewById(R.id.box_blur);
         progress = rootView.findViewById(R.id.progress);
@@ -239,7 +246,9 @@ public class TipDialog extends BaseDialog {
     private Timer cancelTimer;
     
     private void autoDismiss() {
-        if (cancelTimer != null) cancelTimer.cancel();
+        if (cancelTimer != null) {
+            cancelTimer.cancel();
+        }
         cancelTimer = new Timer();
         cancelTimer.schedule(new TimerTask() {
             @Override
@@ -249,11 +258,14 @@ public class TipDialog extends BaseDialog {
             }
         }, tipTime);
     }
-    
+
+    @Override
     public void refreshView() {
         if (rootView != null) {
             final int bkgResId, blurFrontColor;
-            if (tipTheme == null) tipTheme = DialogSettings.tipTheme;
+            if (tipTheme == null) {
+                tipTheme = DialogSettings.tipTheme;
+            }
             switch (tipTheme) {
                 case LIGHT:
                     bkgResId = R.drawable.rect_light;
@@ -276,6 +288,8 @@ public class TipDialog extends BaseDialog {
                                 break;
                             case SUCCESS:
                                 boxTip.setBackgroundResource(R.mipmap.img_finish_dark);
+                                break;
+                            default:
                                 break;
                         }
                     } else {
@@ -304,6 +318,8 @@ public class TipDialog extends BaseDialog {
                                 break;
                             case SUCCESS:
                                 boxTip.setBackgroundResource(R.mipmap.img_finish);
+                                break;
+                            default:
                                 break;
                         }
                     } else {
@@ -343,7 +359,9 @@ public class TipDialog extends BaseDialog {
                 boxTip.setBackground(null);
                 boxTip.setVisibility(View.VISIBLE);
                 boxTip.addView(customView);
-                if (onBindView != null) onBindView.onBind(this, customView);
+                if (onBindView != null) {
+                    onBindView.onBind(this, customView);
+                }
             }
         }
     }
@@ -352,8 +370,9 @@ public class TipDialog extends BaseDialog {
         onDismissListener = new OnDismissListener() {
             @Override
             public void onDismiss() {
-                if (dismissListener != null)
+                if (dismissListener != null) {
                     dismissListener.onDismiss();
+                }
                 waitDialogTemp = null;
             }
         };
@@ -399,7 +418,9 @@ public class TipDialog extends BaseDialog {
     }
     
     public static void dismiss() {
-        if (waitDialogTemp != null) waitDialogTemp.doDismiss();
+        if (waitDialogTemp != null) {
+            waitDialogTemp.doDismiss();
+        }
         waitDialogTemp = null;
         for (BaseDialog dialog : dialogList) {
             if (dialog instanceof TipDialog) {
@@ -415,7 +436,9 @@ public class TipDialog extends BaseDialog {
     public TipDialog setMessage(String message) {
         this.message = message;
         log("启动等待对话框 -> " + message);
-        if (txtInfo != null) txtInfo.setText(message);
+        if (txtInfo != null) {
+            txtInfo.setText(message);
+        }
         refreshView();
         return this;
     }
@@ -423,14 +446,18 @@ public class TipDialog extends BaseDialog {
     public TipDialog setMessage(int messageResId) {
         this.message = context.get().getString(messageResId);
         log("启动等待对话框 -> " + message);
-        if (txtInfo != null) txtInfo.setText(message);
+        if (txtInfo != null) {
+            txtInfo.setText(message);
+        }
         refreshView();
         return this;
     }
     
     public TipDialog setTip(TYPE type) {
         this.type = type;
-        if (type != TYPE.OTHER) tipImage = null;
+        if (type != TYPE.OTHER) {
+            tipImage = null;
+        }
         refreshView();
         return this;
     }
@@ -456,7 +483,9 @@ public class TipDialog extends BaseDialog {
     
     public TipDialog setTipTime(int tipTime) {
         this.tipTime = tipTime;
-        if (type != null) autoDismiss();
+        if (type != null) {
+            autoDismiss();
+        }
         return this;
     }
     
@@ -491,7 +520,9 @@ public class TipDialog extends BaseDialog {
     
     public TipDialog setCancelable(boolean enable) {
         this.cancelable = enable ? BOOLEAN.TRUE : BOOLEAN.FALSE;
-        if (dialog != null) dialog.setCancelable(cancelable == BOOLEAN.TRUE);
+        if (dialog != null) {
+            dialog.setCancelable(cancelable == BOOLEAN.TRUE);
+        }
         return this;
     }
     

@@ -2,13 +2,10 @@ package com.kongzue.dialog.v3;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -23,12 +20,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.kongzue.dialog.R;
-import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnDismissListener;
 import com.kongzue.dialog.interfaces.OnShowListener;
 import com.kongzue.dialog.util.BaseDialog;
@@ -36,9 +30,7 @@ import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.util.TextInfo;
 import com.kongzue.dialog.util.view.BlurView;
 import com.kongzue.dialog.util.view.IOSItemImageView;
-import com.kongzue.dialog.util.view.MaterialTouchView;
 import com.kongzue.dialog.util.view.TableLayout;
-
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -93,6 +85,8 @@ public class ShareDialog extends BaseDialog {
                 case STYLE_MATERIAL:
                     shareDialog.build(shareDialog, R.layout.dialog_share_material);
                     break;
+                default:
+                    break;
             }
             return shareDialog;
         }
@@ -111,7 +105,9 @@ public class ShareDialog extends BaseDialog {
     @Override
     public void bindView(View rootView) {
         this.rootView = rootView;
-        if (boxCustom != null) boxCustom.removeAllViews();
+        if (boxCustom != null) {
+            boxCustom.removeAllViews();
+        }
         boxBody = rootView.findViewById(R.id.box_body);
         boxShare = rootView.findViewById(R.id.box_share);
         txtTitle = rootView.findViewById(R.id.txt_title);
@@ -132,9 +128,15 @@ public class ShareDialog extends BaseDialog {
     
     @Override
     public void refreshView() {
-        if (cancelButtonTextInfo == null) cancelButtonTextInfo = buttonTextInfo;
-        if (titleTextInfo == null) titleTextInfo = super.titleTextInfo;
-        if (itemTextInfo == null) itemTextInfo = messageTextInfo;
+        if (cancelButtonTextInfo == null) {
+            cancelButtonTextInfo = buttonTextInfo;
+        }
+        if (titleTextInfo == null) {
+            titleTextInfo = super.titleTextInfo;
+        }
+        if (itemTextInfo == null) {
+            itemTextInfo = messageTextInfo;
+        }
         
         if (rootView != null) {
             switch (style) {
@@ -343,12 +345,16 @@ public class ShareDialog extends BaseDialog {
                         }
                     }
                     break;
+                default:
+                    break;
             }
             
             if (!isNull(title)) {
                 txtTitle.setText(title);
                 txtTitle.setVisibility(View.VISIBLE);
-                if (titleSplitLine != null) titleSplitLine.setVisibility(View.VISIBLE);
+                if (titleSplitLine != null) {
+                    titleSplitLine.setVisibility(View.VISIBLE);
+                }
             }
             
             if (btnCancel != null) {
@@ -363,9 +369,13 @@ public class ShareDialog extends BaseDialog {
             if (customView != null) {
                 boxCustom.removeAllViews();
                 boxCustom.addView(customView);
-                if (onBindView != null) onBindView.onBind(this, customView);
+                if (onBindView != null) {
+                    onBindView.onBind(this, customView);
+                }
                 boxCustom.setVisibility(View.VISIBLE);
-                if (titleSplitLine != null) titleSplitLine.setVisibility(View.VISIBLE);
+                if (titleSplitLine != null) {
+                    titleSplitLine.setVisibility(View.VISIBLE);
+                }
             } else {
                 boxCustom.setVisibility(View.GONE);
             }
@@ -388,7 +398,9 @@ public class ShareDialog extends BaseDialog {
                     if (isTouchDown) {
                         float deltaY = event.getY() - touchDownY;
                         float aimY = boxBody.getY() + deltaY;
-                        if (aimY < 0) aimY = 0;
+                        if (aimY < 0) {
+                            aimY = 0;
+                        }
                         boxBody.setY(aimY);
                     }
                     break;
@@ -443,6 +455,8 @@ public class ShareDialog extends BaseDialog {
                     }
                     isTouchDown = false;
                     break;
+                default:
+                    break;
             }
             return true;
         }
@@ -459,7 +473,9 @@ public class ShareDialog extends BaseDialog {
     }
     
     public ShareDialog addItem(Item item) {
-        if (items == null) items = new ArrayList<>();
+        if (items == null) {
+            items = new ArrayList<>();
+        }
         items.add(item);
         refreshView();
         return this;
@@ -535,6 +551,8 @@ public class ShareDialog extends BaseDialog {
                 break;
             case STYLE_MATERIAL:
                 build(this, R.layout.dialog_share_material);
+                break;
+            default:
                 break;
         }
         

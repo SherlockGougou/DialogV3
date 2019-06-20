@@ -242,7 +242,9 @@ public class Notification {
     
     public void showNotification() {
         isShow = true;
-        if (style == null) style = DialogSettings.style;
+        if (style == null) {
+            style = DialogSettings.style;
+        }
         switch (style) {
             case STYLE_IOS:
                 showIOSNotification();
@@ -274,7 +276,9 @@ public class Notification {
             public void onClick() {
                 if (customView == null) {
                     toast.cancel();
-                    if (onNotificationClickListener != null) onNotificationClickListener.onClick();
+                    if (onNotificationClickListener != null) {
+                        onNotificationClickListener.onClick();
+                    }
                 }
             }
         });
@@ -333,7 +337,9 @@ public class Notification {
         boxBody.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (customView == null) toast.cancel();
+                if (customView == null) {
+                    toast.cancel();
+                }
                 return false;
             }
         });
@@ -359,7 +365,9 @@ public class Notification {
             public void onClick() {
                 if (customView == null) {
                     toast.cancel();
-                    if (onNotificationClickListener != null) onNotificationClickListener.onClick();
+                    if (onNotificationClickListener != null) {
+                        onNotificationClickListener.onClick();
+                    }
                 }
             }
         });
@@ -420,7 +428,9 @@ public class Notification {
         boxBody.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (customView == null) toast.cancel();
+                if (customView == null) {
+                    toast.cancel();
+                }
                 return false;
             }
         });
@@ -446,7 +456,9 @@ public class Notification {
             public void onClick() {
                 if (customView == null) {
                     toast.cancel();
-                    if (onNotificationClickListener != null) onNotificationClickListener.onClick();
+                    if (onNotificationClickListener != null) {
+                        onNotificationClickListener.onClick();
+                    }
                 }
             }
         });
@@ -482,12 +494,13 @@ public class Notification {
     private void refreshView() {
         if (style != DialogSettings.STYLE.STYLE_IOS) {
             if (btnNotic != null) {
-                if (backgroundColor == 0)
+                if (backgroundColor == 0) {
                     if (style == DialogSettings.STYLE.STYLE_KONGZUE) {
                         backgroundColor = context.get().getResources().getColor(R.color.notificationNormal);
                     } else {
                         backgroundColor = context.get().getResources().getColor(R.color.white);
                     }
+                }
                 btnNotic.setBackgroundColor(backgroundColor);
             }
         }
@@ -527,7 +540,9 @@ public class Notification {
                 boxCustom.setVisibility(View.VISIBLE);
                 boxCustom.addView(customView);
                 rootView.setDispatchTouchEvent(false);
-                if (onBindView!=null)onBindView.onBind(this,customView);
+                if (onBindView!=null) {
+                    onBindView.onBind(this,customView);
+                }
             } else {
                 boxCustom.setVisibility(View.GONE);
                 rootView.setDispatchTouchEvent(true);
@@ -539,11 +554,15 @@ public class Notification {
     }
     
     public void log(Object o) {
-        if (DialogSettings.DEBUGMODE) Log.i(">>>", o.toString());
+        if (DialogSettings.DEBUGMODE) {
+            Log.i(">>>", o.toString());
+        }
     }
     
     public void error(Object o) {
-        if (DialogSettings.DEBUGMODE) Log.e(">>>", o.toString());
+        if (DialogSettings.DEBUGMODE) {
+            Log.e(">>>", o.toString());
+        }
     }
     
     private int getStatusBarHeight() {
@@ -565,7 +584,9 @@ public class Notification {
         private LinearLayout btn;
         
         public void show(final Context context, final View view) {
-            if (toast != null) toast.cancel();
+            if (toast != null) {
+                toast.cancel();
+            }
             toast = null;
             
             toast = new Toast(context.getApplicationContext());
@@ -583,7 +604,9 @@ public class Notification {
                 @Override
                 public void onViewDetachedFromWindow(View v) {
                     isShow = false;
-                    if (onDismissListener != null) onDismissListener.onDismiss();
+                    if (onDismissListener != null) {
+                        onDismissListener.onDismiss();
+                    }
                 }
             });
             
@@ -647,7 +670,9 @@ public class Notification {
     
     //捕获8.0之前Toast的BadTokenException，Google在Android 8.0的代码提交中修复了这个问题(By @Dovar66[https://github.com/Dovar66/DToast])
     private static void hookHandler(Toast toast) {
-        if (toast == null || Build.VERSION.SDK_INT >= 26) return;
+        if (toast == null || Build.VERSION.SDK_INT >= 26) {
+            return;
+        }
         try {
             Field sField_TN = Toast.class.getDeclaredField("mTN");
             sField_TN.setAccessible(true);
@@ -670,8 +695,12 @@ public class Notification {
     }
     
     protected void useTextInfo(TextView textView, TextInfo textInfo) {
-        if (textInfo == null) return;
-        if (textView == null) return;
+        if (textInfo == null) {
+            return;
+        }
+        if (textView == null) {
+            return;
+        }
         if (textInfo.getFontSize() > 0) {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textInfo.getFontSize());
         }
@@ -825,7 +854,9 @@ public class Notification {
     }
     
     public void dismiss() {
-        if (toast != null) toast.cancel();
+        if (toast != null) {
+            toast.cancel();
+        }
     }
     
     public interface OnBindView {

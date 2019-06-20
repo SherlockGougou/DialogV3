@@ -2,12 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "com.kongzue.dialogdemo"
-        minSdkVersion 19
+        minSdkVersion 17
         targetSdkVersion 28
-        versionCode 67
-        versionName "3.0.7"
+        versionCode 68
+        versionName "3.0.8"
 
         renderscriptTargetApi 14
         renderscriptSupportModeEnabled true    // Enable RS support
